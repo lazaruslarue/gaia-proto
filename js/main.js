@@ -1,12 +1,14 @@
+// Main.js in Application
 import {run} from '@cycle/xstream-run'
 import {makeDOMDriver} from '@cycle/dom'
-import {makeFetchDriver} from '@cycle/fetch'
+import {makeHTTPDriver} from '@cycle/http'
 import VideoList from './Components/VideoList'
-import Video from './Components/Video'
+
+const main = VideoList;
 
 const drivers = {
   DOM: makeDOMDriver('#root'),
-  HTTP: makeFetchDriver(),
+  HTTP: makeHTTPDriver(),
 };
 
-run(Video, drivers);
+run(main, drivers);
