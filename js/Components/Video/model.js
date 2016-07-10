@@ -1,14 +1,10 @@
 import xs from 'xstream';
 
-function model({props$, actions$}) {
+function model(props$, actions$) {
 
   // THESE ARE THE VIDEO PROPERTIES
-  let sanitizedProps$ = props$.startWith({title: '', bannerTag: '', tileUrl: ''});
-
-
-  // TODO: i think this is where we make the HTTP call
-
-
+  let sanitizedProps$ = props$
+    .startWith({title: '', bannerTag: '', tileUrl: ''});
 
   return sanitizedProps$;
 

@@ -1,7 +1,8 @@
 import {button, div, input, label, li} from '@cycle/dom';
 
 function view(state$) {
-  return state$.map( ({title, bannerTag, url}) => {
+  console.log('view in video working')
+  return state$.map( (title, bannerTag, url) => {
     console.log('vie2w')
     let videoRootClasses = {
       bannerTag: bannerTag,
