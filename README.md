@@ -1,24 +1,22 @@
-<<<<<<< HEAD
-# gaia-proto
-=======
-#Cycle.js starter template
+# gaia-prototype.
 
-This is a simple starter template for [Cycle.js](http://cycle.js.org/) apps. Also, it is [xstream](http://staltz.com/xstream/) ready!
+## Details
+
+This is a simple starter template for [Cycle.js](http://cycle.js.org/) apps. It uses [xstream](http://staltz.com/xstream/) and the corresponding `cycle-run`.
 
 
 ## Installing
 
 From the command line:
 
-`git clone https://github.com/andreloureiro/cyclejs-starter && cd cyclejs-starter && npm run start`
+`npm run start`
 
 
 ## Usage
 
 ### Development
 
-You can start a local server at `http://localhost:8080` for your application with `npm run serve`. It uses [Webpack](https://webpack.github.io/) and provides live reloading out of the box.
-
+You can start a local server at `http://localhost:8080` for your application with `npm run serve`. It uses [Webpack](https://webpack.github.io/) and will live reload.
 
 ### Production
 
@@ -28,12 +26,4 @@ Build a production ready version of your app into `dist/bundle.js` using `npm ru
 ## Utils
 
 - [Cycle.js](http://cycle.js.org)
-- [Getting Started (Cycle.js)](http://cycle.js.org/getting-started.html)
 - [xstream](http://staltz.com/xstream/)
-- [xstream API](https://github.com/staltz/xstream)
-
-
-## License
-
-MIT
->>>>>>> 7ae599691be019a22180808f86e8ef8d80147c3c
