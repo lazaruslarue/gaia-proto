@@ -1,23 +1,48 @@
 // VideoList View
-import {button, div, input, label, li, h3} from '@cycle/dom';
+import {header, section,ul, footer, h1, button, div, input, label, li, h3} from '@cycle/dom';
 
-function view(state$) {
-  console.log('view in video working')
-  return state$.map( (title, bannerTag, url) => {
-console.log('another test in video list')
-    let videoRootClasses = {
-      bannerTag: bannerTag,
-      url: url,
-    };
-console.log(videoRootClasses)
-    return li('.videoRoot', {class: videoRootClasses}, [
-      div('.view', [
-        button('.get-more', 'get more button'),
-        label(title)
-      ]),
-      h3('.vid-url', url)
-    ])
-  })
+function renderHeader(data) {
+
+  return header('.header', [
+    h1('name', data.details$.term.name),
+    li('body', data.details$.term.body),
+    li('image_link', data.details$.term.termImages.hero.hero_320x200)
+  ])
 }
 
-export default view;
+function renderMain(data) {
+console.log('dkdkdkd',data)
+  return section('.main',  [
+
+    ul('.video-list', data.titles$
+        .map(d => {
+          // this is where we insert the isolated Video components
+          // into the DOM for the VideoList component
+console.log('^^^^^^^^');
+console.log(d);
+          return li(d.title)
+        })
+     )
+
+  ])
+}
+
+function renderFooter(data) {
+  return footer('.footer', [
+    h1('.count', data.details$.totalCount)
+  ])
+}
+
+
+export default function view(state$) {
+
+    return state$.map(videoData => {
+
+      return div([
+        renderHeader(videoData),
+        renderMain(videoData),
+        renderFooter(videoData)
+      ])}
+    )
+
+}

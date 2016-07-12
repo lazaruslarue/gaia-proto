@@ -7,27 +7,27 @@ import view from './view';
 import Video from '../Video/index';
 
 function amendStateWithVideos(DOMSource) {
-  console.log(DOMSource)
-  return function (videosData) {
+  return function (state) {
     // the list of videos get ammended.
-console.log('firststest**********************')
 
     return {
-      ...videosData,
-      titles: videosData.titles.map(data => {
+      // all our original data
+      ...state,
+      // ammended with a list of isolated Videos
+      videoList: state.titles$.map(data => {
         // turn the data into an Observable
-        console.log('test',data)
         let props$ = xs.of(data);
+        console.log('data',data);
         // Create scoped video component
         let videoItem = isolate(Video)({DOM: DOMSource, props$});
-
         // return the new data
         return {
           ...data,
-          // this is the new property containing the DOM for the new Video
+          // this is the new property containing a DOM & action stream
+          // for each Video
           videoItem: {
             DOM: videoItem.DOM,
-            action$: videoItem.action$.map(ev => { id: data.id})
+            // action$: videoItem.action$
           }
         }
       })
@@ -35,40 +35,36 @@ console.log('firststest**********************')
   }
 }
 
+function makeVideoWrapper (DOM) {
+  return function videoWrapper(props) {
+    const video = isolate(Video)({DOM, props$: xs.of(props)})
+    return {
+      DOM: item.DOM,
+    }
+  }
+}
+
 function VideoList(sources) {
+
+
+  //get initial request data
   let GAIA_URL = 'http://www.gaia.com/api/videos/term/119931';
   let request$ = xs.of({
     url: GAIA_URL,
     headers: {
       Accept: 'application/json'
     },
-    category: 'video_list'
+    category: 'request'
   });
 
-  //our list of videos!!
-  let response$ = sources.HTTP
-    .select('video_list')
-    .flatten()
 
-
-  // The initial video data
-  let sourceVideos$ = response$.map(res => {
-    console.log('body',res.body);
-    return res.body})
-
-  // a stream to proxy actions from each video in the list
-  let proxyVideoAction$ = xs.create();
-  // actions by the user
-  let action$ = intent(sources.DOM, proxyVideoAction$);
-
-  // what's visible, what's known, what else?
-  let state$ = model(sourceVideos$, action$);
-
+  let actions$ = intent(sources);
+  let state$ = model(actions$, makeVideoWrapper(sources.DOM))
   let amendedState$ = state$
     .map(amendStateWithVideos(sources.DOM))
-    .remember()
 
-  // fake ass dom... 'til it's rendered
+
+  // dom...
   let vtree$ = view(amendedState$);
 
   let sinks = {
