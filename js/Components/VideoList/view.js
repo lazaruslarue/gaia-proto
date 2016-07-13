@@ -18,6 +18,7 @@ console.log('dkdkdkd',data)
         .map(d => {
           // this is where we insert the isolated Video components
           // into the DOM for the VideoList component
+          // but right now, it's only existing in the Video List & the Video DOM is not actually used. 
           console.log('video title',d);
           return li('.title',
             [div('.title', {style: {color: 'blue'}}, [
