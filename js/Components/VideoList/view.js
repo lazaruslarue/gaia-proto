@@ -1,8 +1,8 @@
 // VideoList View
-import {header, section,ul, footer, h1, button, div, input, label, li, h3} from '@cycle/dom';
+import {header, section,ul, footer, h1, h2, a, img, text,button, div, input, label, li, h3} from '@cycle/dom';
 
 function renderHeader(data) {
-
+console.log(data);
   return header('.header', [
     h1('name', data.details$.term.name),
     li('body', data.details$.term.body),
@@ -14,13 +14,23 @@ function renderMain(data) {
 console.log('dkdkdkd',data)
   return section('.main',  [
 
-    ul('.video-list', data.titles$
+    ul('.video-list', data.details$.titles
         .map(d => {
           // this is where we insert the isolated Video components
           // into the DOM for the VideoList component
-console.log('^^^^^^^^');
-console.log(d);
-          return li(d.title)
+          console.log(d);
+          return li('.title',
+            [div('.title', {style: {color: 'blue'}}, [
+              h2('.name', d.title),
+              label('.vid-link',[
+                img('.link', {props: {
+                  src:  d.hero_image.hero_320x200,
+                  text: 'click for image',
+                }})
+              ])
+
+            ]),
+          ])
         })
      )
 

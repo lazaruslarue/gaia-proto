@@ -16,9 +16,13 @@ export default function intent(sources, actions$) {
     .map(res => res.body)
     .map(msg => ({ type: 'TERM_RESPONSE', payload: msg }))
 
+  // videos added to the list
+  let addVideo$ = actions$.filter( a => a.type === 'ADD_VIDEO')
+    .map(action  => ({...action, type: 'addVideo'}))
 
   return xs.merge(
-    response$
+    response$,
+    addVideo$
     // TODO: more intent plz
   )
 

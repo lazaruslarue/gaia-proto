@@ -31,21 +31,20 @@ function model(action$, vidFn) {
     })
 
   let titles$ = action$
-    .filter(a => a.type === 'VIDEO')
-
-  titles$.addListener({
-    next: i => console.log(i, 'log'),
-    error: i => console.error(i),
-    complete: i => console.log('complete'),
-  })
+    .filter(a => a.type === 'addVideo')
+    .map(a => function addVideoReducer(titleData) {
+      console.log('titleDasta(*)');
+      console.log(titleData);
+    })
+    .startWith([])
 
   let state$ = xs.combine(details$, titles$)
-    .map(([details, titles])=>({
+    .map(([details, titles])=>{
+      console.log(details, titles)
+      return ({
       details$: details,
       titles$: titles
-    }))
-
-
+    })})
 
   return state$
 }

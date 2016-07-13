@@ -57,10 +57,12 @@ function VideoList(sources) {
     category: 'request'
   });
 
+  let proxyVideoAction$ = xs.create();
 
-  let actions$ = intent(sources);
+  let actions$ = intent(sources, proxyVideoAction$);
   let state$ = model(actions$, makeVideoWrapper(sources.DOM))
 
+  proxyVideoAction$.imitate(actions$);
   // dom...
   let vtree$ = view(state$);
 
