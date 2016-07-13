@@ -30,12 +30,8 @@ function model(action$, vidFn) {
       }
     })
 
-  let titles$ = term$
-    .map(data => data.titles)
-    .fromArray()
-    // .map(titles => {
-    //   return xs.fromArray(titles)
-    // })
+  let titles$ = action$
+    .filter(a => a.type === 'VIDEO')
 
   titles$.addListener({
     next: i => console.log(i, 'log'),

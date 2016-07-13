@@ -60,12 +60,9 @@ function VideoList(sources) {
 
   let actions$ = intent(sources);
   let state$ = model(actions$, makeVideoWrapper(sources.DOM))
-  let amendedState$ = state$
-    .map(amendStateWithVideos(sources.DOM))
-
 
   // dom...
-  let vtree$ = view(amendedState$);
+  let vtree$ = view(state$);
 
   let sinks = {
     DOM: vtree$,
